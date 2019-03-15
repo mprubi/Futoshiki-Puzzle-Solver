@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/nopassword/CLionProjects/ECE_209_Program2/futo.c
+stdio.h
+-
+stdlib.h
+-
+stdbool.h
+-
+

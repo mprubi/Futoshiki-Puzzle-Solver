@@ -1,0 +1,21 @@
+4
+|- - - -|	line# = 2, j=0-3
+|      v|	line# = 3, j=0-3
+|- - - -|	line# = 4, j=4-7
+|^   ^  |	line# = 5, j=4-7
+|- - 2 -|	line# = 610:13 PM 3/8/201910:13 PM 3/8/201910:13 PM 3/8/2019, j=8-11
+|       |	line# = 7, j=8-11
+|->- - 3|	line# = 8, j=12-15
+
+
+printPuzzle(4x4)
+
+  j = 		  i =
+0 1 2 3		0 1 2 3	      lineNumber = 2	 puzzle
+4 5 6 7		0 1 2 3	      lineNumber = 3	 constraints
+0 1 2 3		4 5 6 7	      lineNumber = 4	 puzzle
+4 5 6 7		4 5 6 7	      lineNumber = 5	 constraints
+0 1 2 3		8 9 10 11     lineNumber = 6     puzzle
+4 5 6 7		8 9 10 11     lineNumber = 7	 constraints
+0 1 2 3		12 13 14 15   lineNumber = 8	 puzzle
+
