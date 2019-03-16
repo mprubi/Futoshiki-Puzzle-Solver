@@ -11,7 +11,15 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c9cf21e6-53d5-4c74-925a-98644edd8f1f" name="Default Changelist" comment="" />
+    <list default="true" id="c9cf21e6-53d5-4c74-925a-98644edd8f1f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ECE_209_Program2.dir/futo.c.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ECE_209_Program2.dir/futo.c.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ECE_209_Program2.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ECE_209_Program2.dir/objects.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/ECE_209_Program2.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/ECE_209_Program2.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/futo.c" beforeDir="false" afterPath="$PROJECT_DIR$/futo.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/puz4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/puz4.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/puz4_debug.txt" beforeDir="false" afterPath="$PROJECT_DIR$/puz4_debug.txt" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,8 +42,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/futo.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="757">
-              <caret line="157" column="23" lean-forward="true" selection-start-line="157" selection-start-column="23" selection-end-line="157" selection-end-column="23" />
+            <state relative-caret-position="927">
+              <caret line="329" column="27" lean-forward="true" selection-start-line="329" selection-start-column="27" selection-end-line="329" selection-end-column="27" />
               <folding>
                 <element signature="e#130#148#0" expanded="true" />
               </folding>
@@ -119,12 +127,12 @@
       <workItem from="1551819234050" duration="4585000" />
       <workItem from="1551899942978" duration="8222000" />
       <workItem from="1552008993507" duration="26533000" />
-      <workItem from="1552438900026" duration="5812000" />
+      <workItem from="1552438900026" duration="19538000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="167983000" />
+    <option name="totallyTimeSpent" value="181709000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="31" y="-1688" width="1066" height="1696" extended-state="6" />
@@ -141,7 +149,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
-      <window_info anchor="bottom" id="Messages" order="8" weight="0.43889955" />
+      <window_info anchor="bottom" id="Messages" order="8" weight="0.43761995" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="11" />
@@ -182,14 +190,19 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/futo.c</url>
-          <line>160</line>
-          <option name="timeStamp" value="15" />
+          <line>115</line>
+          <option name="timeStamp" value="19" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/futo.c</url>
-          <line>111</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
+        <breakpoint enabled="true" type="CidrWatchpoint">
+          <dependency id="0" />
+          <properties />
+          <option name="timeStamp" value="33" />
+        </breakpoint>
+        <breakpoint enabled="true" type="CidrWatchpoint">
+          <dependency master-id="0" />
+          <properties />
+          <option name="timeStamp" value="34" />
+        </breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="CidrExceptionBreakpoint">
@@ -205,11 +218,28 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="CMakeRunConfiguration">
+        <watch expression="debugBreak" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="breakpointCondition">
       <expression>
         <expression-string>j=14</expression-string>
+        <language-id>ObjectiveC</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
+    <expressions id="watch">
+      <expression>
+        <expression-string>debugBreak</expression-string>
+        <language-id>ObjectiveC</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>SDFZXGZF</expression-string>
         <language-id>ObjectiveC</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -257,6 +287,31 @@
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
+        <expression-string>i = 12</expression-string>
+        <language-id>ObjectiveC</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>i = 10</expression-string>
+        <language-id>ObjectiveC</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>i = 7</expression-string>
+        <language-id>ObjectiveC</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>i</expression-string>
+        <language-id>ObjectiveC</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>debugBreak</expression-string>
+        <language-id>ObjectiveC</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>j = 14</expression-string>
         <language-id>ObjectiveC</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
@@ -281,8 +336,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/futo.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="757">
-          <caret line="157" column="23" lean-forward="true" selection-start-line="157" selection-start-column="23" selection-end-line="157" selection-end-column="23" />
+        <state relative-caret-position="927">
+          <caret line="329" column="27" lean-forward="true" selection-start-line="329" selection-start-column="27" selection-end-line="329" selection-end-column="27" />
           <folding>
             <element signature="e#130#148#0" expanded="true" />
           </folding>

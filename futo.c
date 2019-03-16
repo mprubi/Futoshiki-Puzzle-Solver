@@ -77,10 +77,13 @@ int main() {
 
 /* function header comment goes here */
 int readPuzzle(const char *name, int **puzzle, int **constraints, int *size) {
-    char tempbuff;
-    int check;
+    char tempBuff;
+    int arrayDigit;
+    int element = -1;
     int lineNumber = 2;
-    bool breakKforloop = false;
+    int debugBreak;
+    debugBreak = 0;
+    bool iterateI = false;
     bool conditionFlag = false;
     int i = 0;
     int k = 0; //indexes for referencing puzzle and constraint arrays
@@ -109,41 +112,57 @@ int readPuzzle(const char *name, int **puzzle, int **constraints, int *size) {
         c[i] = 0;
     }
 
-    for (i = 0; i < ((*size)*(*size)); i++) {   //from i = 0 to size squared (very element of the puzzle and constraint arrays
-        for (k = 0; k < 2; k++) {           //iterate every two spaces (this groups every two characters together within the bars of each line)
-            do {                            //do while loop keeps scanning until we get to the first desired character of the row
-                fscanf(in, "%c", &tempbuff);
-                check = filterAsciiChar(tempbuff);
-                if(tempbuff == 'v' || tempbuff == '^' || tempbuff == '<' || tempbuff == '>')
+    //handle every element of puzzle and constraint arrays from 0 to size^2
+    for (i = 0; i < ((*size)*(*size)); i++) {
+        //used for debugging and watchpoint
+        if (i == 4) {
+            debugBreak = 1;
+        }
+        element++;
+        //group every two consecutive characters within an element of the array
+        for (k = 0; k < 2; k++) {
+            //continue scanning until we get to the first desired character of the row
+            do {
+                fscanf(in, "%c", &tempBuff);
+                arrayDigit = filterAsciiChar(tempBuff);
+                if(tempBuff == 'v' || tempBuff == '^' || tempBuff == '<' || tempBuff == '>')
                     conditionFlag = !conditionFlag;
-                if((lineNumber%2 == 0) && (i%2 != 0) && (check == -3)){ // -3 is BAR
-                    //if we're on the last index of i on row for the puzzle values, and the character is a BAR, then break the k for loop so i increments to the next element
+                //reset i to zero for constraints array if I'm at ending BAR of the puzzle line (every even lineNumber); -3 is BAR
+                if((lineNumber%2 == 0) && (element == (*size)-1) && (arrayDigit == -3)){
                     if(i == ((*size)*(*size)-1)) break;
-                    i = i-(*size);  //reset i to use index 0-3 a second time for the constraint row
-                    lineNumber++; //increment lineNumber to know what row of the text file I'm on
+                    i = i-(*size);  //take i to -1 to iterate to zero when I come around
+                    element = element - *size;
+                    lineNumber++;
                     break;
                 }
-                if (lineNumber%2 != 0 && (i%2 != 0) && (check == -3)){  // -3 is BAR
-                    //if we're on the last index of i on the constraints row (every odd line in the file), and the character is a BAR, then break the k for loop so i increments to the next element
-                    breakKforloop = !breakKforloop;
-                    lineNumber++; //increment lineNumber to know what row of the text file I'm on
+                //iterate i if I'm at a the ending BAR of the constraints line (every odd lineNumber)
+                if (lineNumber%2 != 0 && (element == (*size)-1) && (arrayDigit == -3)){
+                    iterateI = !iterateI;
+                    lineNumber++;
+                    element = element - *size;
                     break;
                 }
-            } while (check == -1 || check == -3);    //keep scanning until we get to first bar of each row
-            if (breakKforloop){
-                breakKforloop = !breakKforloop;
+            } while (arrayDigit == -1 || arrayDigit == -3);
+            if (iterateI){
+                iterateI = !iterateI;
                 break;
             }
-            if (check >= 0 && check <= 9 && !(conditionFlag)) {
-                p[i] = check;  //store character in ith index of array
+            if (arrayDigit >= 0 && arrayDigit <= 9 && !(conditionFlag)) {
+                p[i] = arrayDigit;
             }
-            if ((check == 1 || check == 2) && (conditionFlag)){  //if < or > and conditionFlag was set, put this value in constraints array
-                c[i] = c[i] | check;
-                conditionFlag = !conditionFlag; //turn this flag off for re-use during next condition check
+            /*
+             * 1 = <
+             * 2 = >
+             * 4 = ^
+             * 8 = v
+             * */
+            if ((arrayDigit == 1 || arrayDigit == 2) && (conditionFlag)){
+                c[i] = c[i] | arrayDigit;
+                conditionFlag = !conditionFlag;
             }
-            if((check == 4 || check == 8) && (conditionFlag)){ //if ^ or v and conditionFlag was set, put this value in constraints array
-                c[i] = c[i] | check;
-                conditionFlag = !conditionFlag; //turn this flag off for re-use during next condition check
+            if((arrayDigit == 4 || arrayDigit == 8) && (conditionFlag)){
+                c[i] = c[i] | arrayDigit;
+                conditionFlag = !conditionFlag;
             }
         }
     }
@@ -308,9 +327,13 @@ char retConstraintChars(const int *constraints, int lineNumber){
             case 8 :
                 return 'v';
             case 9 :
-                return '^';
+                return 'v';
             case 10 :
                 return 'v';
+            case 5 :
+                return '^';
+            case 6 :
+                return '^';
             default :
                 return ' ';
         }
