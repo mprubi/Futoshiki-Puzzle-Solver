@@ -17,6 +17,7 @@ void printPuzzle(const int puzzle[], const int constraints[], int size);
 int isLegal(int row, int col, int num, const int puzzle[], const int constraints[], int size);
 int filterAsciiChar(char asciiChar);
 char retConstraintChars(const int constraints[], int lineNumber);
+void printJustArrays(const int puzzle[], const int constraints[], int size);
 
 #ifndef NOMAIN   /* ignore: this is to remove the main function for testing purposes */
 
@@ -39,26 +40,8 @@ int main() {
     }
     printf("PUZZLE:\n");
 
-    //this block is my extra debugging code to see what is in th array
-    {
-        for(i = 0; i < (size)*(size); i++){
-            printf("%d ", puzzle[i]);
-        }
-
-        printf("\n\n");
-
-        for(j = 0; j < (size)*(size); j++){
-            if(constraints[j]){
-                printf("%c ", retConstraintChars(&constraints[j], 0));
-            }
-            else{
-                printf("%d ", constraints[j]);
-            }
-
-        }
-        printf("\n\n");
-    }
-
+    //this function is for my debugging to show me what's in the arrays
+    printJustArrays(puzzle, constraints, size);
 
     printPuzzle(puzzle, constraints, size);
 
@@ -81,8 +64,6 @@ int readPuzzle(const char *name, int **puzzle, int **constraints, int *size) {
     int arrayDigit;
     int element = -1;
     int lineNumber = 2;
-    int debugBreak;
-    debugBreak = 0;
     bool iterateI = false;
     bool conditionFlag = false;
     int i = 0;
@@ -100,11 +81,12 @@ int readPuzzle(const char *name, int **puzzle, int **constraints, int *size) {
 
     fscanf(in, "%d", &*size);  //read first decimal digit from file into the variable 'size'
 
-
-    c = (int*) malloc((*size)*(*size)*sizeof(int));  //re-size c array according to first digit read from file (for my use to manipulated the array within this function)
-    p = (int*) malloc((*size)*(*size)*sizeof(int)); //re-size p array according to first digit read from file (for my use to manipulated the array within this function)
-    *puzzle = p;   //these pointers are just for main to see the same array I'm manipulating
-    *constraints = c;  //these pointers are just for main to see the same array I'm manipulating
+    //re-size p and c arrays according to first digit read from file (for my use to manipulated the array within this function)
+    //the p and c pointers are just for main to see the same array I'm manipulating
+    c = (int*) malloc((*size)*(*size)*sizeof(int));
+    p = (int*) malloc((*size)*(*size)*sizeof(int));
+    *puzzle = p;
+    *constraints = c;
 
     //initialize all elements of both arrays to zeroes
     for(i = 0; i < ((*size)*(*size)); i++){
@@ -114,10 +96,6 @@ int readPuzzle(const char *name, int **puzzle, int **constraints, int *size) {
 
     //handle every element of puzzle and constraint arrays from 0 to size^2
     for (i = 0; i < ((*size)*(*size)); i++) {
-        //used for debugging and watchpoint
-        if (i == 4) {
-            debugBreak = 1;
-        }
         element++;
         //group every two consecutive characters within an element of the array
         for (k = 0; k < 2; k++) {
@@ -251,12 +229,102 @@ void printPuzzle(const int *puzzle, const int *constraints, int size) {
 
 /* function header comment goes here */
 int solve(int *puzzle, const int *constraints, int size) {
+    int i = 0; //number to try
+    int element = 0; //puzzle element
+    int col = 0; //tracker for columns
+    int row = 0;
+
+        for(col = 0; col < size; col++){
+            if(element == size*size) return 1; //no zero elements, puzzle solved
+            if(col==(size-1)){
+                row++;
+            }
+            if(puzzle[element] == 0){
+                break;
+            }
+            element++;
+        }
+
+    for (i = 0; i < size; i++) {
+        if (!isLegal(row, col, i, puzzle, constraints, size)) {
+            break;
+        } else {
+            puzzle[element] = i;
+            if (solve(puzzle, constraints, size)) {
+                return 1;
+            } else {
+                puzzle[element] = 0;
+            }
+        }
+    }
     return 0;
 }
 
 /*function header comment goes here */
 int isLegal(int row, int col, int num, const int *puzzle, const int *constraints, int size) {
-    return 0;
+    int E = 0;
+    int e;
+    int travCol;
+    int travRow;
+
+    //define element and copy values before they are modified
+    E = (row*size)+col;
+    e = E;
+    travCol = col;
+    travRow = row;
+
+    //check left
+    while(travCol > 0){
+        e--;
+        if (puzzle[e] == num) return 0;
+        travCol--;
+    }
+
+    e = E;
+    travCol = col;
+    //check right
+    while(travCol < size){
+        e++;
+        if (puzzle[e] == num) return 0;
+        travCol++;
+    }
+    e = E;
+    //check down
+    while(travRow > 0){
+        e -= size;
+        if (puzzle[e] == num) return 0;
+        travRow--;
+    }
+    e = E;
+    travRow = row;
+    //check up
+    while(travRow < (size-1)){
+        e += size;
+        if (puzzle[e] == num) return 0;
+        travRow++;
+    }
+
+    //RELATIONAL CHECKS
+    switch(constraints[e]){
+        case 1 :  // <
+            if (!(num < puzzle[e+1])) return 0;
+        case 2 :  // >
+            if(!(num > puzzle[e+1])) return 0;
+        case 4 :  //  ^
+            if(!(num < puzzle[e+size])) return 0;
+        case 5 :  // < and  ^
+            if(!((num < puzzle[e+1]) && (num < puzzle[e+size]))) return 0;
+        case 6 :  // > and  ^
+            if(!((num > puzzle[e+1]) && (num < puzzle[e+size]))) return 0;
+        case 8 :  //  v
+            if(!(num > puzzle[e+size])) return 0;
+        case 9 :  // < and  v
+            if(!((num < puzzle[e+1]) && (num > puzzle[e+size]))) return 0;
+        case 10 :  // > and  v
+            if(!((num > puzzle[e+1]) && (num > puzzle[e+size]))) return 0;
+    }
+
+    return 1;
 }
 
 int filterAsciiChar(char asciiChar){
@@ -339,4 +407,27 @@ char retConstraintChars(const int *constraints, int lineNumber){
         }
     }
     return 1;
+}
+
+void printJustArrays(const int puzzle[], const int constraints[], int size){
+    int i = 0;
+    int j = 0;
+    {
+        for(i = 0; i < (size)*(size); i++){
+            printf("%d ", puzzle[i]);
+        }
+
+        printf("\n\n");
+
+        for(j = 0; j < (size)*(size); j++){
+            if(constraints[j]){
+                printf("%c ", retConstraintChars(&constraints[j], 0));
+            }
+            else{
+                printf("%d ", constraints[j]);
+            }
+
+        }
+        printf("\n\n");
+    }
 }
