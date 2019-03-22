@@ -12,7 +12,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c9cf21e6-53d5-4c74-925a-98644edd8f1f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/README.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ECE_209_Program2.dir/futo.c.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ECE_209_Program2.dir/futo.c.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ECE_209_Program2.dir/objects.a" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ECE_209_Program2.dir/objects.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/ECE_209_Program2.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/ECE_209_Program2.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/futo.c" beforeDir="false" afterPath="$PROJECT_DIR$/futo.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invalidPuz.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/puz3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/puz3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/puz4N.txt" beforeDir="false" afterPath="$PROJECT_DIR$/puz4N.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/puz4alt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/puz4alt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/puz5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/puz5.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/puz7.txt" beforeDir="false" afterPath="$PROJECT_DIR$/puz7.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/puz7alt.txt" beforeDir="false" afterPath="$PROJECT_DIR$/puz7alt.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/puz8.txt" beforeDir="false" afterPath="$PROJECT_DIR$/puz8.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/puz_nosoln.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/validPuz.txt" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,8 +51,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/futo.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="91">
-              <caret line="98" selection-start-line="98" selection-end-line="98" />
+            <state relative-caret-position="353">
+              <caret line="254" selection-start-line="254" selection-end-line="254" />
               <folding>
                 <element signature="e#130#148#0" expanded="true" />
               </folding>
@@ -121,29 +136,29 @@
       <workItem from="1551819234050" duration="4585000" />
       <workItem from="1551899942978" duration="8222000" />
       <workItem from="1552008993507" duration="26533000" />
-      <workItem from="1552438900026" duration="41728000" />
+      <workItem from="1552438900026" duration="50385000" />
+      <workItem from="1553196425660" duration="20488000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="203899000" />
+    <option name="totallyTimeSpent" value="233044000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1455" height="975" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.1888668" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.42111507" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.2296865" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.27511197" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.48042706" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
-      <window_info anchor="bottom" id="Messages" order="8" weight="0.4365362" />
+      <window_info anchor="bottom" id="Messages" order="8" weight="0.43570057" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="11" />
@@ -159,13 +174,13 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.18682022" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.2021753" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.42111507" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.26227546" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
-      <window_info anchor="bottom" id="Messages" order="8" weight="0.43953934" />
+      <window_info anchor="bottom" id="Messages" order="8" weight="0.43592814" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="11" />
@@ -181,6 +196,18 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/futo.c</url>
+          <line>254</line>
+          <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/futo.c</url>
+          <line>266</line>
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="CidrExceptionBreakpoint">
           <properties caught="ANY_EXCEPTION">
@@ -198,6 +225,7 @@
     <watches-manager>
       <configuration name="CMakeRunConfiguration">
         <watch expression="debugBreak" />
+        <watch expression="debug" />
       </configuration>
     </watches-manager>
   </component>
@@ -313,8 +341,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/futo.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="91">
-          <caret line="98" selection-start-line="98" selection-end-line="98" />
+        <state relative-caret-position="353">
+          <caret line="254" selection-start-line="254" selection-end-line="254" />
           <folding>
             <element signature="e#130#148#0" expanded="true" />
           </folding>

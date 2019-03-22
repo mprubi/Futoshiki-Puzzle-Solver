@@ -1,6 +1,6 @@
 /* Program 2 -- Futoshiki puzzle
- * Usage: Futoshiki puzzle
- * This program
+ * Usage: Futoshiki puzzle <filename>
+ * This program accepts file pointer to <filename> and will print a solution to a futoshiki puzzle if it exists
  *
  * Mark Rubianes
  * ECE 209 001
@@ -40,8 +40,8 @@ int main() {
     }
     printf("PUZZLE:\n");
 
-    //this function is for my debugging to show me what's in the arrays
-    printJustArrays(puzzle, constraints, size);
+    //this function was just for my debugging to show me what's in the arrays
+    //printJustArrays(puzzle, constraints, size);
 
     printPuzzle(puzzle, constraints, size);
 
@@ -58,7 +58,12 @@ int main() {
 #endif  /* ignore */
 
 
-/* function header comment goes here */
+/* Name: readPuzzle
+ * Function: this function reads contents of <filename> and generates arrays with specific values from the file
+ * Arguments: char *name, int **puzzle, int **constraints, int *size
+ * Returns: zero when file could not be read
+ *          1 when file is read successfully
+  * */
 int readPuzzle(const char *name, int **puzzle, int **constraints, int *size) {
     char tempBuff;
     int arrayDigit;
@@ -148,12 +153,18 @@ int readPuzzle(const char *name, int **puzzle, int **constraints, int *size) {
     return 1;
 }
 
-/* function header comment goes here */
+
+/* Name: printPuzzle
+ * Function: this function prints to std out contents of arrays in futoshiki puzzle form
+ * Arguments: const int *puzzle, const int *constraints, int size
+ * Returns: void
+  * */
 void printPuzzle(const int *puzzle, const int *constraints, int size) {
     int i = 0;
     int j;
     int lineNumber = 2;
     bool incrementLineNumber = 0;
+    bool exitDoWhile = 0;
 
     do{ //handles every single element of each array
         for (j = 0; j < size*2; j++){  // handles every elements of 'size' (each row)
@@ -214,8 +225,9 @@ void printPuzzle(const int *puzzle, const int *constraints, int size) {
                     incrementLineNumber = !incrementLineNumber;
                 }
             }
-            if ((j == size-1) && i == size*size){ //last character of puzzle
-                incrementLineNumber = !incrementLineNumber;
+            if ((j == size-1) && i == (size*size-1)){ //last character of puzzle
+                exitDoWhile  = !exitDoWhile ;
+                break;
             }
             if(incrementLineNumber){
                 lineNumber++;
@@ -224,32 +236,37 @@ void printPuzzle(const int *puzzle, const int *constraints, int size) {
 
             i++;
         }
-    }while(i < size*size);
+        if(exitDoWhile) break;
+    }while(i < (size*size)-1);
 }
 
-/* function header comment goes here */
+/* Name: solve
+ * Function: this function recursively solves the futoshiki puzzle
+ * Arguments: int *puzzle, const int *constraints, int size
+ * Returns: zero when no solution exists for current iteration of puzzle
+ *          1 when solution exists for current iteration of puzzle
+  * */
 int solve(int *puzzle, const int *constraints, int size) {
     int i = 0; //number to try
     int element = 0; //puzzle element
     int col = 0; //tracker for columns
     int row = 0;
 
-        for(col = 0; col < size; col++){
-            if(element == size*size) return 1; //no zero elements, puzzle solved
-            if(col==(size-1)){
-                row++;
-            }
-            if(puzzle[element] == 0){
-                break;
-            }
-            element++;
+    for(col = 0; col < size; col++){
+        if((col == size-1) && puzzle[element] != 0){ //check if start of new row
+            row++;
+            col = (col - size);
         }
-
-    for (i = 0; i < size; i++) {
-        if (!isLegal(row, col, i, puzzle, constraints, size)) {
+        if(puzzle[element] == 0){  //check if there is already a number if so, move on to next element
             break;
-        } else {
-            puzzle[element] = i;
+        }
+        if(element == size*size) return 1; //if at end of array and no zero elements, puzzle solved
+        element++;
+    }
+
+    for (i = 1; i <= size; i++) {
+        if (isLegal(row, col, i, puzzle, constraints, size)) {
+            puzzle[element] = i;  //if legal, place the number in the box and see if it solved the puzzle
             if (solve(puzzle, constraints, size)) {
                 return 1;
             } else {
@@ -260,73 +277,144 @@ int solve(int *puzzle, const int *constraints, int size) {
     return 0;
 }
 
-/*function header comment goes here */
+/* Name: isLegal
+ * Function: this function checks conditions that a number, num satisfies rules of futoshiki puzzle
+ * Arguments: int row, int col, int num, const int *puzzle, const int *constraints, int size
+ * Returns: zero when num is illegal
+ *          1 when num is legal
+  * */
 int isLegal(int row, int col, int num, const int *puzzle, const int *constraints, int size) {
     int E = 0;
     int e;
-    int travCol;
-    int travRow;
+    int colTraverse;
+    int rowTraverse;
 
     //define element and copy values before they are modified
-    E = (row*size)+col;
+    E = (row*size)+col; //define which element we're at base on row and column
     e = E;
-    travCol = col;
-    travRow = row;
+    colTraverse = col;
+    rowTraverse = row;
 
     //check left
-    while(travCol > 0){
+    while(colTraverse > 0){
         e--;
         if (puzzle[e] == num) return 0;
-        travCol--;
+        colTraverse--;
     }
 
-    e = E;
-    travCol = col;
+    e = E;  //reset e to the element we're checking
+    colTraverse = col;
     //check right
-    while(travCol < size){
+    while(colTraverse < size){
         e++;
         if (puzzle[e] == num) return 0;
-        travCol++;
+        colTraverse++;
     }
     e = E;
-    //check down
-    while(travRow > 0){
+    //check up
+    while(rowTraverse > 0){
         e -= size;
         if (puzzle[e] == num) return 0;
-        travRow--;
+        rowTraverse--;
     }
     e = E;
-    travRow = row;
-    //check up
-    while(travRow < (size-1)){
+    rowTraverse = row;
+    //check down
+    while(rowTraverse < (size-1)){
         e += size;
         if (puzzle[e] == num) return 0;
-        travRow++;
+        rowTraverse++;
     }
 
     //RELATIONAL CHECKS
-    switch(constraints[e]){
-        case 1 :  // <
-            if (!(num < puzzle[e+1])) return 0;
-        case 2 :  // >
-            if(!(num > puzzle[e+1])) return 0;
-        case 4 :  //  ^
-            if(!(num < puzzle[e+size])) return 0;
-        case 5 :  // < and  ^
-            if(!((num < puzzle[e+1]) && (num < puzzle[e+size]))) return 0;
-        case 6 :  // > and  ^
-            if(!((num > puzzle[e+1]) && (num < puzzle[e+size]))) return 0;
-        case 8 :  //  v
-            if(!(num > puzzle[e+size])) return 0;
-        case 9 :  // < and  v
-            if(!((num < puzzle[e+1]) && (num > puzzle[e+size]))) return 0;
-        case 10 :  // > and  v
-            if(!((num > puzzle[e+1]) && (num > puzzle[e+size]))) return 0;
+    //if box of interest is non-zero and constraint is not met, then not legal
+    e = E;
+    //check box to the left for constraint and that it's satisfied
+    if(col> 0 && constraints[E-1]){
+        switch(constraints[E-1]){
+            case 1 :  // <
+                if (puzzle[e-1] !=0 && !(num > puzzle[e-1])) return 0;
+                break;
+            case 2 :  // >
+                if(puzzle[e-1] !=0 && !(num < puzzle[e-1])) return 0;
+                break;
+            case 5 :  // < and  ^
+                if(puzzle[e-1] != 0 && !(num > puzzle[e-1])) return 0;
+                break;
+            case 6 :  // > and  ^
+                if(puzzle[e-1] != 0 && !(num < puzzle[e-1])) return 0;
+                break;
+            case 9 :  // < and  v
+                if(puzzle[e-1] != 0 && !(num > puzzle[e-1])) return 0;
+                break;
+            case 10 :  // > and  v
+                if(puzzle[e-1] != 0 && !(num < puzzle[e-1])) return 0;
+                break;
+        }
+    }
+    //check box above for constraint and that it's satisfied
+    if(row > 0 && constraints[E-size]){
+        switch(constraints[E-size]){
+            case 4 :  //  ^
+                if(puzzle[e-size] != 0 && !(num > puzzle[e-size])) return 0;
+                break;
+            case 5 :  // < and  ^
+                if(puzzle[e-size] != 0 && !(num > puzzle[e-size])) return 0;
+                break;
+            case 6 :  // > and  ^
+                if(puzzle[e-size] != 0 && !(num > puzzle[e-size])) return 0;
+                break;
+            case 8 :  //  v
+                if(puzzle[e-size] != 0 && !(num < puzzle[e-size])) return 0;
+                break;
+            case 9 :  // < and  v
+                if(puzzle[e-size] != 0 && !(num < puzzle[e-size])) return 0;
+                break;
+            case 10 :  // > and  v
+                if(puzzle[e-size] != 0 && !(num < puzzle[e-size])) return 0;
+                break;
+        }
     }
 
-    return 1;
+    switch(constraints[E]){
+        case 1 :  // <
+            if (puzzle[e+1] !=0 && !(num < puzzle[e+1])) return 0;
+            break;
+        case 2 :  // >
+            if(puzzle[e+1] !=0 && !(num > puzzle[e+1])) return 0;
+            break;
+        case 4 :  //  ^
+            if(puzzle[e+size] != 0 && !(num < puzzle[e+size])) return 0;
+            break;
+        case 5 :  // < and  ^
+            if(puzzle[e+1] != 0 && !(num < puzzle[e+1])) return 0;
+            if(puzzle[e+size] != 0 && !(num < puzzle[e+size])) return 0;
+            break;
+        case 6 :  // > and  ^
+            if(puzzle[e+1] != 0 && !(num > puzzle[e+1])) return 0;
+            if(puzzle[e+size] != 0 && !(num < puzzle[e+size])) return 0;
+            break;
+        case 8 :  //  v
+            if(puzzle[e+size] != 0 && !(num > puzzle[e+size])) return 0;
+            break;
+        case 9 :  // < and  v
+            if(puzzle[e+1] != 0 && !(num < puzzle[e+1])) return 0;
+            if(puzzle[e+size] != 0 && !(num > puzzle[e+size])) return 0;
+            break;
+        case 10 :  // > and  v
+            if(puzzle[e+1] != 0 && !(num > puzzle[e+1])) return 0;
+            if(puzzle[e+size] != 0 && !(num > puzzle[e+size])) return 0;
+            break;
+    }
+
+    return 1; // is a legal number for this spot
 }
 
+/* Name: filterAsciiChar
+ * Function: this function accepts an ascii character and returns a decimal digit
+ * Arguments: char asciiChar
+ * Returns: integers ranging from -3 t 9, depending on which char is recieved
+  * */
 int filterAsciiChar(char asciiChar){
 
     switch(asciiChar) {
@@ -369,6 +457,13 @@ int filterAsciiChar(char asciiChar){
     }
 }
 
+/* Name: retConstraintChars
+ * Function: this function accepts constraint array, and a row number (linenumber), and returns the appropriate ascii character
+ * for the purpose of printing to std out
+ * Arguments: const int *constraints, int lineNumber
+ * Returns: range of ascii characters depending on which decimal is in the current constraint element
+ *          1 when no there is no constraint associated with the current element
+  * */
 char retConstraintChars(const int *constraints, int lineNumber){
     if(lineNumber%2 == 0){
         switch (*constraints) {
@@ -409,6 +504,9 @@ char retConstraintChars(const int *constraints, int lineNumber){
     return 1;
 }
 
+
+/*
+ * //function made strictly for debugging to easily view contents of arrays
 void printJustArrays(const int puzzle[], const int constraints[], int size){
     int i = 0;
     int j = 0;
@@ -426,8 +524,8 @@ void printJustArrays(const int puzzle[], const int constraints[], int size){
             else{
                 printf("%d ", constraints[j]);
             }
-
         }
         printf("\n\n");
     }
 }
+*/
